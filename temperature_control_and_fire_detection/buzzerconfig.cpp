@@ -1,0 +1,2 @@
+#define BUZZER1_PIN 24
+#define BUZZER2_PIN 30
