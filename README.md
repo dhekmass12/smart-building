@@ -5,7 +5,7 @@ Sistem ini dirancang untuk menurunkan suhu panas dan juga mendeteksi adanya keba
 
 Team's name: **Pintu Surga**.
 
-Member:
+Members:
 1. Dimas Tri Kurniawan (2006530261)
 2. Adnan Mukhtar (2006485245)
 3. Bintang Hari Pratama (2006462696)
