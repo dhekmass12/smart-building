@@ -36,4 +36,5 @@ Hal yang harus diperhatikan:
 1. Isi pin dan buat task untuk lantai 3, 2, 1.
 2. Tidak boleh merubah format output. Cukup ubah data yang diperlukan.
 3. Nama folder dan file .ino harus sama. Hati-hati mengubah nama file yang ada dependensinya.
-4. Jaga jarak saat mengetes sensor. Khusus untuk mq-2, jangan sampai kepanasan karena mudah rusak.
+4. Semua library harus satu level dengan file .ino.
+5. Jaga jarak saat mengetes sensor. Khusus untuk mq-2, jangan sampai kepanasan karena mudah rusak.
