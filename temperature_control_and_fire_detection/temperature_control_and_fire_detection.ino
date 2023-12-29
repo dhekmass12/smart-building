@@ -256,8 +256,13 @@ void TaskFan2(void *pvParameters){
 void TaskPrint(void *pvParameters){
   
   while(1){
-    Serial.println("Temperature 1: " + String(temperature1) + "ºC - " + "Asap 1: " + String(smoke1) + " ppm");
-    Serial.println("Temperature 2: " + String(temperature2) + "ºC - " + "Asap 2: " + String(smoke2) + " ppm");
+    Serial.println(
+      String(temperature1) + "," + String(smoke1) + "|" +
+      String(temperature2) + "," + String(smoke2) + "|" +
+      "<suhu lantai 3>" + "," + "<asap lantai 3>" + "|" +
+      "<suhu lantai 2>" + "," + "<asap lantai 2>" + "|" +
+      "<suhu lantai 1>" + "," + "<asap lantai 1>" + "|" +
+    );
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
   }
 }
