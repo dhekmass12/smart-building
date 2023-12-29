@@ -21,6 +21,11 @@ Alat yang digunakan:
 - 5 buah kipas
 - 5 buah buzzer
 
+Penggunaan pin (per lantai):
+- 1 pin pwm (transistor)
+- 1 pin analog (mq-2)
+- 3 pin digital (led, dht22, buzzer)
+
 Prasyarat:
 1. FreeRTOS
 2. Install library: Adafruit Unified Sensor, Buzzer, DHT sensor library, FreeRTOS
@@ -34,7 +39,8 @@ Cara kerja:
 
 Hal yang harus diperhatikan:
 1. Isi pin dan buat task untuk lantai 3, 2, 1.
-2. Tidak boleh merubah format output. Cukup ubah data yang diperlukan.
-3. Nama folder dan file .ino harus sama. Hati-hati mengubah nama file yang ada dependensinya.
-4. Semua library harus satu level dengan file .ino.
-5. Jaga jarak saat mengetes sensor. Khusus untuk mq-2, jangan sampai kepanasan karena mudah rusak.
+2. Sangat dilarang menggunakan function **delay()** !
+3. Tidak boleh merubah format output. Cukup ubah data yang diperlukan.
+4. Nama folder dan file .ino harus sama. Hati-hati mengubah nama file yang ada dependensinya.
+5. Semua library harus satu level dengan file .ino.
+6. Jaga jarak saat mengetes sensor. Khusus untuk mq-2, jangan sampai kepanasan karena mudah rusak.
