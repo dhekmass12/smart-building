@@ -7,24 +7,24 @@
 #include "buzzerconfig.cpp"
 #include "fanconfig.cpp"
 
-void TaskLed1( void *pvParameters );
-void TaskLed2( void *pvParameters );
-void TaskDht1( void *pvParameters );
-void TaskDht2( void *pvParameters );
-void TaskMq1( void *pvParameters );
-void TaskMq2( void *pvParameters );
-void TaskBuzzer1( void *pvParameters );
-void TaskBuzzer2( void *pvParameters );
-void TaskFan1( void *pvParameters );
-void TaskFan2( void *pvParameters );
+void TaskLed5( void *pvParameters );
+void TaskLed4( void *pvParameters );
+void TaskDht5( void *pvParameters );
+void TaskDht4( void *pvParameters );
+void TaskMq5( void *pvParameters );
+void TaskMq4( void *pvParameters );
+void TaskBuzzer5( void *pvParameters );
+void TaskBuzzer4( void *pvParameters );
+void TaskFan5( void *pvParameters );
+void TaskFan4( void *pvParameters );
 void TaskPrint( void *pvParameters );
 
-float Ro1;  // you can set the default to 10kohm (10)
-float Ro2;  // you can set the default to 10kohm (10)
-double temperature1;
-double temperature2;
-int smoke1;
-int smoke2;
+float Ro5;  // you can set the default to 10kohm (10)
+float Ro4;  // you can set the default to 10kohm (10)
+double temperature5;
+double temperature4;
+int smoke5;
+int smoke4;
 
 void setup() {
   Serial.begin(9600);   //UART setup, baudrate = 9600bps
@@ -33,18 +33,18 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB, on LEONARDO, MICRO, YUN, and other 32u4 based boards.
   }
              
-  Serial.println("Calibrating MQ1...");                
-  Ro1 = MQCalibration(MQ1_PIN);       
-  Serial.println("Calibrating MQ2...");                  //Calibrating the sensor. Please make sure the sensor is in clean air
-  Ro2 = MQCalibration(MQ2_PIN);                       //Calibrating the sensor. Please make sure the sensor is in clean air               
+  Serial.println("Calibrating MQ-2 for 5th floor...");                
+  Ro5 = MQCalibration(MQ5_PIN);       
+  Serial.println("Calibrating MQ-2 for 4th floor...");                  //Calibrating the sensor. Please make sure the sensor is in clean air
+  Ro4 = MQCalibration(MQ4_PIN);                       //Calibrating the sensor. Please make sure the sensor is in clean air               
   Serial.println("Calibration is done..."); 
-  Serial.println("Ro1 = " + String(Ro1) + " kohm");
-  Serial.println("Ro2 = " + String(Ro2) + " kohm");
-  dht1.begin();
-  dht2.begin();
+  Serial.println("Ro5 = " + String(Ro5) + " kohm");
+  Serial.println("Ro4 = " + String(Ro4) + " kohm");
+  dht5.begin();
+  dht4.begin();
 
   xTaskCreate(
-    TaskLed1
+    TaskLed5
     ,  "Blink"   // A name just for humans
     ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
@@ -53,7 +53,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskLed2
+    TaskLed4
     ,  "Blink"   // A name just for humans
     ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
@@ -62,7 +62,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskDht1,
+    TaskDht5,
     "GetTemperature1",
     1000,
     NULL,
@@ -71,7 +71,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskDht2,
+    TaskDht4,
     "GetTemperature2",
     1000,
     NULL,
@@ -80,7 +80,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskMq1,
+    TaskMq5,
     "GetSmoke1",
     1000,
     NULL,
@@ -89,7 +89,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskMq2,
+    TaskMq4,
     "GetSmoke2",
     1000,
     NULL,
@@ -98,7 +98,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskBuzzer1,
+    TaskBuzzer5,
     "RingingWhenOnFire",
     128,
     NULL,
@@ -107,7 +107,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskBuzzer2,
+    TaskBuzzer4,
     "RingingWhenOnFire",
     128,
     NULL,
@@ -116,7 +116,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskFan1,
+    TaskFan5,
     "OnWhenTemperatureIsHot",
     128,
     NULL,
@@ -125,7 +125,7 @@ void setup() {
   );
 
   xTaskCreate(
-    TaskFan2,
+    TaskFan4,
     "OnWhenTemperatureIsHot",
     128,
     NULL,
@@ -145,110 +145,110 @@ void setup() {
   vTaskStartScheduler();
 }
 
-void TaskLed1(void *pvParameters){
-  pinMode(LED1_PIN, OUTPUT);
+void TaskLed5(void *pvParameters){
+  pinMode(LED5_PIN, OUTPUT);
 
   while(1){
-    if (smoke1 >= 50){
-      digitalWrite(LED1_PIN, HIGH);   
+    if (smoke5 >= 50){
+      digitalWrite(LED5_PIN, HIGH);   
       vTaskDelay( 200 / portTICK_PERIOD_MS ); 
-      digitalWrite(LED1_PIN, LOW);    
-      vTaskDelay( 200 / portTICK_PERIOD_MS ); 
-    }
-  }
-}
-
-void TaskLed2(void *pvParameters){
-  pinMode(LED2_PIN, OUTPUT);
-
-  while(1){
-    if (smoke2 >= 50){
-      digitalWrite(LED2_PIN, HIGH);   
-      vTaskDelay( 200 / portTICK_PERIOD_MS ); 
-      digitalWrite(LED2_PIN, LOW);    
+      digitalWrite(LED5_PIN, LOW);    
       vTaskDelay( 200 / portTICK_PERIOD_MS ); 
     }
   }
 }
 
-void TaskDht1(void *pvParameters){
+void TaskLed4(void *pvParameters){
+  pinMode(LED4_PIN, OUTPUT);
 
   while(1){
-    temperature1 = dht1.readTemperature();
+    if (smoke4 >= 50){
+      digitalWrite(LED4_PIN, HIGH);   
+      vTaskDelay( 200 / portTICK_PERIOD_MS ); 
+      digitalWrite(LED4_PIN, LOW);    
+      vTaskDelay( 200 / portTICK_PERIOD_MS ); 
+    }
+  }
+}
+
+void TaskDht5(void *pvParameters){
+
+  while(1){
+    temperature5 = dht5.readTemperature();
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
   }
 }
 
-void TaskDht2(void *pvParameters){
+void TaskDht4(void *pvParameters){
 
   while(1){
-    temperature2 = dht2.readTemperature();
+    temperature4 = dht4.readTemperature();
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
   }
 }
 
-void TaskMq1(void *pvParameters){
+void TaskMq5(void *pvParameters){
   
   while(1){
-    smoke1 = MQGetGasPercentage(MQRead(MQ1_PIN)/Ro1,GAS_SMOKE);
+    smoke5 = MQGetGasPercentage(MQRead(MQ5_PIN)/Ro5,GAS_SMOKE);
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
   }
 }
 
-void TaskMq2(void *pvParameters){
+void TaskMq4(void *pvParameters){
   
   while(1){
-    smoke2 = MQGetGasPercentage(MQRead(MQ2_PIN)/Ro2,GAS_SMOKE);
+    smoke4 = MQGetGasPercentage(MQRead(MQ4_PIN)/Ro4,GAS_SMOKE);
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
   }
 }
 
-void TaskBuzzer1(void *pvParameters){
+void TaskBuzzer5(void *pvParameters){
 
   while(1){
-    if (smoke1 >= 50){
-      tone(BUZZER1_PIN, 100, 1000);
+    if (smoke5 >= 50){
+      tone(BUZZER5_PIN, 100, 1000);
       vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
-      tone(BUZZER1_PIN, 350, 1000);
+      tone(BUZZER5_PIN, 350, 1000);
       vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
     }
   }
 }
 
-void TaskBuzzer2(void *pvParameters){
+void TaskBuzzer4(void *pvParameters){
 
   while(1){
-    if (smoke2 >= 50){
-      tone(BUZZER2_PIN, 100, 1000);
+    if (smoke4 >= 50){
+      tone(BUZZER4_PIN, 100, 1000);
       vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
-      tone(BUZZER2_PIN, 350, 1000);
+      tone(BUZZER4_PIN, 350, 1000);
       vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
     }
   }
 }
 
-void TaskFan1(void *pvParameters){
-  pinMode(FAN1_PIN, OUTPUT);
+void TaskFan5(void *pvParameters){
+  pinMode(FAN5_PIN, OUTPUT);
 
   while(1){
-    if (temperature1 >= 35.){
-      digitalWrite(FAN1_PIN, HIGH);
+    if (temperature5 >= 35.){
+      digitalWrite(FAN5_PIN, HIGH);
     }
     else{
-      digitalWrite(FAN1_PIN, LOW);
+      digitalWrite(FAN5_PIN, LOW);
     }
   }
 }
 
-void TaskFan2(void *pvParameters){
-  pinMode(FAN2_PIN, OUTPUT);
+void TaskFan4(void *pvParameters){
+  pinMode(FAN4_PIN, OUTPUT);
 
   while(1){
-    if (temperature2 >= 35.){
-      digitalWrite(FAN2_PIN, HIGH);
+    if (temperature4 >= 35.){
+      digitalWrite(FAN4_PIN, HIGH);
     }
     else{
-      digitalWrite(FAN2_PIN, LOW);
+      digitalWrite(FAN4_PIN, LOW);
     }
   }
 }
@@ -257,11 +257,11 @@ void TaskPrint(void *pvParameters){
   
   while(1){
     Serial.println(
-      String(temperature1) + "," + String(smoke1) + "|" +
-      String(temperature2) + "," + String(smoke2) + "|" +
+      String(temperature5) + "," + String(smoke5) + "|" +
+      String(temperature4) + "," + String(smoke4) + "|" +
       "<suhu lantai 3>" + "," + "<asap lantai 3>" + "|" +
       "<suhu lantai 2>" + "," + "<asap lantai 2>" + "|" +
-      "<suhu lantai 1>" + "," + "<asap lantai 1>" + "|" +
+      "<suhu lantai 1>" + "," + "<asap lantai 1>" + "|"
     );
     vTaskDelay( 1000 / portTICK_PERIOD_MS ); 
   }

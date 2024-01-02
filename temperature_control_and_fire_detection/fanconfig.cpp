@@ -1,2 +1,2 @@
-#define FAN1_PIN 2
-#define FAN2_PIN 3
+#define FAN5_PIN 2
+#define FAN4_PIN 3

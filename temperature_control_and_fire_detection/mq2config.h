@@ -13,8 +13,8 @@ Note:    This piece of source code is supposed to be used as a demostration ONLY
 ************************************************************************************/
 
 /************************Hardware Related Macros************************************/
-#define         MQ1_PIN                      (0)     //define which analog input channel you are going to use
-#define         MQ2_PIN                      (1)     //define which analog input channel you are going to use
+#define         MQ5_PIN                      (0)     //define which analog input channel you are going to use
+#define         MQ4_PIN                      (1)     //define which analog input channel you are going to use
 #define         RL_VALUE                     (5)     //define the load resistance on the board, in kilo ohms
 #define         RO_CLEAN_AIR_FACTOR          (9.83)  //RO_CLEAR_AIR_FACTOR=(Sensor resistance in clean air)/RO,
                                                      //which is derived from the chart in datasheet
